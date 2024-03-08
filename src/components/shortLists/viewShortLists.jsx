@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
 import CreateTable from '../constants/createTable'
 import BasicCard from '../constants/basicCard';
-import SearchBar from "../constants/searchBar";
-
-function ViewShortLists({backendActor}){
+import { Box, Stack, TextField, Typography } from "@mui/material";
+function ViewShortLists({backendActor, user}){
     const [stories, setStories] = useState([
-        {accountant:"accountant",driver:"driver",amountGiven:"amountGiven",purposeOfMoney:"purposeOfMoney",signedBy:"signedBy"},
-        {accountant:"accountant",driver:"driver",amountGiven:"amountGiven",purposeOfMoney:"purposeOfMoney",signedBy:"signedBy"},
-        {accountant:"accountant",driver:"driver",amountGiven:"amountGiven",purposeOfMoney:"purposeOfMoney",signedBy:"signedBy"},
+        {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
+        {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
+        {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
     ])
     const [search, setSearch] = useState("")
     const [getting, setGetting] = useState(true);
     const tableHeader = [
-        {id:"accountant", name:"accountant"},{id:"driver", name:"Driver"},{id:"amountGiven", name:"Amount Given"},
-        {id:"purposeOfMoney", name:"Purpose Of Money"},{id:"signedBy", name:"Signed By"}]
+        {id:"agentEmail", name:"Email"},
+        {id:"houseId", name:"House Id"},
+        {id:"agentContact", name:"Agent Contact"},
+        {id:"agentAddress", name:"Agent Address"},
+        {id:"roomsAvailable", name:"Rooms Available"},
+        {id:"conditions", name:"House Conditions"},
+        {id:"utilities", name:"utilities"}
+      ]
+
     // useEffect(() => {
     //     getCars();
     //   }, []);
@@ -28,10 +34,17 @@ function ViewShortLists({backendActor}){
           setGetting(false)
         }
       };
-
+      const getHead = () => {
+        return(
+          <Box sx={{marginLeft:'15%', justifyContent:"center"}}>
+              <Typography variant="h2"> Houses On ShortList</Typography>
+              <Typography variant="h2" sx={{borderBottom:'2px solid black',width:'45%'}}></Typography>
+          </Box>
+        )
+      }
     return(
-        <BasicCard content={<CreateTable data={stories} tableHeader={tableHeader} />}
-         header={ <SearchBar searchValue={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for driver and accounting history" title="Our Spendings on drivers" getting={getting} /> } />
+        <BasicCard content={<CreateTable user={user} data={stories} link="agentEmail" link2="houseId" focus="shortList" routie2="more" routie="more" tableHeader={tableHeader} canDownload={true} />}
+         header={getHead()} />
     )
 }
 export default ViewShortLists

@@ -2,68 +2,98 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Box, Stack, TextField, Typography } from "@mui/material";
 import CommonButton from "../constants/commonButton";
-import BasicCard from '../constants/basicCard';
+import BasicCard from "../constants/basicCard";
+import DatingBar from "../constants/datingBar";
+import SelectBar from "../constants/selectBar";
+function EditProfile({backendActor, user}){
+  const navigate = useNavigate();
+  const [sending, setSending] = useState(false);
+  const [surname, setSurname] = useState(user.surname)
+  const [email, setEmail] = useState(user.email)
+  const [gender, setGender] = useState(user.gender)
+  const [title, setTitle] = useState(user.title)
+  const [idNo, setIdNo] = useState(user.idNo)
+  const [contact, setContact] = useState(user.contact)
+  const [dob, setDOB] = useState(user.dob)
+  const [name, setName] = useState(user.name)
+  const [country, setCountry] = useState(user.country)
+  const [nationality, setNationality] = useState(user.nationality)
 
-function EditProfile({backendActor}){
-    const navigate = useNavigate();
-    const [sending, setSending] = useState(false);
-    const [hr, setHR] = useState('')
-    const [punishment, setPunishment] = useState('')
-    const [judgement, setJudgement] = useState('')
-    const [offense, setOffense] = useState('')
-    const [driver, setDriver] = useState('')
-
-    const sendMessage = async (e) => {
-        e.preventDefault();
-        try {
-          setSending(true);
-          const message = {
-            hr: hr,
-            punishment: punishment,
-            judgement: judgement,
-            offense: parseInt(offense),
-            driver: driver
-          };
-          await backendActor.addDriverAndHr(message);
-          setHR("");
-          setPunishment("");
-          setJudgement("");
-          setOffense();
-          setDriver("");
-          setSending(true);
-          navigate('/showDriverAndHR');
-        } catch (error) {
-          console.log("Error on send title ", error);
-          setSending(false);
-        }
-      };
-      const getContent = () => {
+  console.log(user)
+  const sendMessageAgent = async (e) => {
+      e.preventDefault();
+      try {
+        setSending(true);
+        const message = {
+          surname: surname,
+          email: email,
+          idNo: idNo,
+          contact: contact,
+          dob: dob,
+          name: name,
+          country: country,
+          gender: gender,
+          title: title,
+          nationality: nationality,
+          level: "client",
+        };
+        await backendActor.addCar(message);
+        setSurname("");
+        setEmail("");
+        setGender("");
+        setTitle("");
+        setIdNo("");
+        setContact("");
+        setDOB("");
+        setName("");
+        setCountry("");
+        setNationality("");
+        setSending(true);
+        navigate('/showCars');
+      } catch (error) {
+        console.log("Error on send title ", error);
+        setSending(false);
+      }
+    };
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      navigate("/showProfile")
+    }
+      const getContentClient = () => {
         return(
-          <Box sx={{marginLeft:'20%', justifyContent:"center"}}>
+          <Box sx={{ justifyContent:"center", marginRight:'100px'}}>
           <form style={{ margin: '1%' }}>
             <Stack>
-                <TextField sx={{ width:'60%', margin:'1%'}} required error={hr.length===0} variant="outlined" value={hr} onChange={(e) => setHR(e.target.value)} label="HR Officer Name" />
-                <TextField sx={{ width:'60%', margin:'1%'}} required error={punishment.length===0} variant="outlined" value={punishment} onChange={(e) => setPunishment(e.target.value)} label="Punishment" />
-                <TextField sx={{ width:'60%', margin:'1%'}} required error={judgement.length===0} minRows={2} maxRows={2} multiline variant="outlined" value={judgement} onChange={(e) => setJudgement(e.target.value)} label="Judgement" />
-                <TextField sx={{ width:'60%', margin:'1%'}} required error={offense.length===0} minRows={2} maxRows={2} multiline variant="outlined" value={offense} onChange={(e) => setOffense(e.target.value)} label="Offense" />
-                <TextField sx={{ width:'60%', margin:'1%'}} required error={driver.length===0} variant="outlined" value={driver} onChange={(e) => setDriver(e.target.value)} label="Driver" />
-                <CommonButton disabled={sending} sx={{ width:'60%', marginLeft:'1%'}} variant="contained" type="submit"> Submit </CommonButton>
+                {/* <SelectBar title="Title" value={title} sx={{ width:'60%', margin:'1%'}} values={[]} /> */}
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={title} label="Title" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={name} label="Name eg. Simon" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={surname} label="surname eg. Simango" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={email} label="email eg. simonsimango@gmail.com" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={idNo} label="identity card / license / passport Number" />
+                {/* <DatingBar title="D.O.B" value={dob} sx={{ width:'60%', margin:'1%'}} /> */}
+                {/* <SelectBar title="Gender" value={gender} sx={{ width:'60%', margin:'1%'}} values={[]} /> */}
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={dob} label="date of birth" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={gender} label="gender" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="standard" value={contact} onChange={(e) => setContact(e.target.value)} label="Contact eg. +263 77 777 7777 " />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={nationality} label="Nationality eg Zimbabwean" />
+                <TextField sx={{ width:'60%', margin:'1%'}} required variant="outlined" value={country} label="country eg Zimbabwe" />
+                <CommonButton disabled={sending} sx={{ width:'60%', marginLeft:'1%'}} variant="contained" onClick={handleSubmit} type="submit"> Submit </CommonButton>
               </Stack>
             </form>
         </Box>
         )
       }
-      const getHead = () => {
+      const getHeadClient = () => {
         return(
-          <Box sx={{marginLeft:'30%', justifyContent:"center"}}>
-              <Typography variant="h2" sx={{borderBottom:'2px solid black',width:'45%',}}></Typography>
-              <Typography variant="h2"> File HR Hearings</Typography>
+          <Box sx={{marginLeft:'20%', justifyContent:"center"}}>
+              
+              <Typography variant="h2"> Edit Your Contact </Typography>
               <Typography variant="h2" sx={{borderBottom:'2px solid black',width:'45%'}}></Typography>
           </Box>
         )
       }
     return(
-        <BasicCard header={getHead()} content={getContent()} />
+        <BasicCard header={getHeadClient()} content={getContentClient()} />
     )
 }
 export default EditProfile

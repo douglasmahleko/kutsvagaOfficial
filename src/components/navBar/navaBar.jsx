@@ -9,55 +9,12 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
-import { makeStyles } from '@material-ui/core';
 import { useNavigate, useLocation } from "react-router-dom";
-
-const drawerWidth = 240
-
-const useStyles = makeStyles((theme) => {
-    return{
-        page:{
-            width:"100%",
-            background:"#99C0F4",
-            fontFamily: 'Arial Narrow',
-            padding: theme.spacing(3)
-        },
-        drawer:{
-            width:drawerWidth,
-            fontFamily: 'Arial Narrow',
-        },
-        drawerPaper:{
-            width:drawerWidth,
-            fontFamily: 'Arial Narrow',
-        },
-        root:{
-            display:"flex",
-            fontFamily: 'Arial Narrow',
-        },
-        active:{
-            backgroundColor:"#9FD0F7",
-            color:"#862020",
-            fontFamily: 'Arial Narrow',
-        },
-        title:{
-            padding: theme.spacing(2),
-            fontFamily: 'Arial Narrow',
-        },
-        appBar:{
-            width : `calc(100% - ${drawerWidth}px)`,
-            fontFamily: 'Arial Narrow',
-        },
-        toolbar:theme.mixins.toolbar,
-        date:{
-            flexGrow:1,
-            fontFamily: 'Arial Narrow',
-        },
-        avatar:{
-            marginLeft:10,
-            fontFamily: 'Arial Narrow',
-        }
-    }
-})
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { IconButton } from '@material-ui/core';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import './navBar.css'
 
 const UserBox = styled(Box)(({theme}) => ({
   display:"flex",
@@ -69,15 +26,29 @@ const Icons = styled(Box)(({theme}) => ({
   gap:"20px",
   alignItems:'center'
 }))
-export default function NavBar() {
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#1976d2',
+    },
+  },
+});
+
+export default function NavBar({user, LogOut}) {
   const location = useLocation()
   const navigate = useNavigate()
     const parsedTitle = location.pathname.replace(/\W/g, ' ')
+    const page = parsedTitle.toLocaleUpperCase()
   const [open, setOpen] = useState(false)
-  const classes = useStyles()
-  
+  let both = []
+  NavBarLists.slice(3, 6).forEach(item => {          
+    console.log( 'user outside if' ,item.level)
+  })
+  // console.log(both)
   return (
     <Box sx={{ display: 'flex' }}>
+      <ThemeProvider theme={darkTheme}>
       <AppBar component="nav">
         <Toolbar>
           <Typography
@@ -91,12 +62,19 @@ export default function NavBar() {
                             <Notifications  />
                         </Badge>
                     </Tooltip>
-                    
                     <UserBox onClick={(e) => setOpen(true)}>
                         <Avatar sx={{width:30, height:30}} src={require("./dougy.jpg")} />
-                        
                     </UserBox>
             </Icons>
+              {/* <Typography sx={{ color:'white', flexDirection:"row", position:"absolute", alignItems:"center", marginLeft:"100px", top:"20px" }}>
+                {page}
+              </Typography> */}
+              <Typography sx={{ color:'white', flexDirection:"row", position:"absolute", alignItems:"center", marginLeft:"330px", top:"20px" }}> 
+                (DOLLARS) - <IconButton color="inherit" size="small"> <CurrencyExchangeIcon /> </IconButton> - {user.amountInDolls}
+              </Typography>
+              <Typography sx={{ color:'white', flexDirection:"row", position:"absolute", alignItems:"center", marginLeft:"530px", top:"20px" }}>
+              (ICP) - <IconButton color="inherit" size="small"> <CurrencyBitcoinIcon /> </IconButton> - {user.amountInICP}
+              </Typography>
           </Typography>
           <Menu
                 id="demo-positioned-menu"
@@ -112,26 +90,33 @@ export default function NavBar() {
                 horizontal: 'left',
                 }}
                 >
-                <Typography p={3} color='#9c9797' variant="span">Douglas</Typography>
+                <Typography p={3} color='#9c9797' variant="span">{user.name}</Typography>
                 
-                {NavBarLists.slice(9).map((item) => (
+                {NavBarLists.slice(10).map((item) => (
               <MenuItem key={item.id} onClick={() => navigate(item.route)} >
                 {item.label}
               </MenuItem>
-            ))}<MenuItem >Logout</MenuItem>
+            ))}
+              <Button sx={{ padding:'2', width:'100%' }} variant='outline' onClick={() => LogOut()} >
+                LogOut
+              </Button>
             </Menu>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {NavBarLists.slice(3, 6).map((item) => (
-              <Button key={item.id} sx={{ color: '#fff' }} onClick={() => navigate(item.route)} >
-                {item.label}
-              </Button>
+                <Button key={item.id} sx={{ color: '#fff' }} onClick={() => navigate(item.route)} >
+                  {item.label} 
+                </Button>
             ))}
+              <Button sx={{ color: '#fff' }} onClick={() => LogOut()} >
+                LogOut
+              </Button>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
       </Box>
+      </ThemeProvider>
     </Box>
   );
 }

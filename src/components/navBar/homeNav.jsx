@@ -58,7 +58,7 @@ const Icons = styled(Box)(({theme}) => ({
   gap:"20px",
   alignItems:'center'
 }))
-export default function HomeNav() {
+export default function HomeNav({agent}) {
   const location = useLocation()
   const navigate = useNavigate()
     const parsedTitle = location.pathname.replace(/\W/g, ' ')
@@ -68,7 +68,7 @@ export default function HomeNav() {
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav">
         <Toolbar>
-          <Typography
+          {/* <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
@@ -81,7 +81,7 @@ export default function HomeNav() {
                     </Tooltip>
                     
             </Icons>
-          </Typography>
+          </Typography> */}
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {NavBarLists.slice(0, 3).map((item) => (
               <Button key={item.id} sx={{ color: '#fff' }} onClick={() => navigate(item.route)} >

@@ -3,33 +3,27 @@ import CreateTable from '../constants/createTable'
 import BasicCard from '../constants/basicCard';
 import SearchBar from "../constants/searchBar";
 
-function ShowAgents({backendActor}){
+function ShowAgents({backendActor, user}){
     const [visible, setVisible] = useState(false)
     const [stories, setStories] = useState([
-      {engineNo:"engineNo", plateNo:"plateNo", dateCarBought:"dateCarBought",mileageToDoService:"mileageToDoService", addedBy:"addedBy", statusOfCar:"statusOfCar",
-    audometerOnBuying:"audometerOnBuying", carName:"carName", carType:"carType",department:"department"},
-    {engineNo:"engineNo", plateNo:"plateNo", dateCarBought:"dateCarBought",mileageToDoService:"mileageToDoService", addedBy:"addedBy", statusOfCar:"statusOfCar",
-    audometerOnBuying:"audometerOnBuying", carName:"carName", carType:"carType",department:"department"},
-    {engineNo:"engineNo", plateNo:"plateNo", dateCarBought:"dateCarBought",mileageToDoService:"mileageToDoService", addedBy:"addedBy", statusOfCar:"statusOfCar",
-    audometerOnBuying:"audometerOnBuying", carName:"carName", carType:"carType",department:"department"},
+      {title: "title", name:"name", surname:"surname", username:"username", email:"email", contact:"contact" , nationality:"nationality", country:"country"},
+      {title: "title", name:"name", surname:"surname", username:"username", email:"email", contact:"contact" , nationality:"nationality", country:"country"},
+      {title: "title", name:"name", surname:"surname", username:"username", email:"email", contact:"contact" , nationality:"nationality", country:"country"},
   ])
 
     const tableHeader = [
-      { id: 'engineNo', name : 'Engine No' },
-      { id: 'plateNo', name : 'Plate No' },
-      { id: 'dateCarBought', name : 'Date Car Bought' },
-      { id: 'mileageToDoService', name : 'Mileage To DoService' },
-      { id: 'addedBy', name : 'Added By' },
-      { id: 'statusOfCar', name : 'Status OfCar' },
-      { id: 'audometerOnBuying', name : 'Audometer On Buying'},
-      { id: 'carName', name : 'Car Name' },
-      { id: 'carType', name : 'Car Type' },
-      { id: 'department', name : 'Department' },
+      { id: 'title', name : 'Title' },
+      { id: 'name', name : 'Name' },
+      { id: 'surname', name : 'Surname' },
+      { id: 'username', name : 'Username' },
+      { id: 'email', name : 'Email' },
+      { id: 'contact', name : 'Contact' },
+      { id: 'nationality', name : 'Nationality' },
+      { id: 'country', name : 'Country' },
   ]
-
     const [search, setSearch] = useState("")
     const [getting, setGetting] = useState(true);
-    
+
     // useEffect(() => {
     //     getCars();
     //   }, []);
@@ -64,10 +58,10 @@ function ShowAgents({backendActor}){
       };
 
     return(
-        <BasicCard content={<CreateTable data={stories} tableHeader={tableHeader} />}
+        <BasicCard content={<CreateTable link="email" focus="housesByAgent" routie="/more" data={stories} tableHeader={tableHeader} />}
          header={ <SearchBar searchValue={search} 
          onChange={(e) => setSearch(e.target.value)} 
-         placeholder="Search for cars" title="Our Cars" 
+         placeholder="Search for Agents" title="Available Agents" 
          getting={getting} /> } />
     )
 }

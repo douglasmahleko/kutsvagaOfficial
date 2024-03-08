@@ -12,7 +12,7 @@ import { NavBarLists } from '../constants/navBarLists';
 import Switch from '@mui/material/Switch';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 
-function SideBar(){
+function SideBar({agent}){
     const navigate = useNavigate()
     const location = useLocation()
     const parsedTitle = location.pathname.replace(/\W/g, ' ')
@@ -24,7 +24,7 @@ function SideBar(){
       >
         <Divider />
         <List>
-          {NavBarLists.slice(6, 9).map((text, index) => (
+          {NavBarLists.slice(6, 10).map((text, index) => (
             <ListItem key={text.id} >
               <ListItemButton onClick={() => navigate(text.route)} >
                 <ListItemIcon sx={navbarStyles.icons}>
