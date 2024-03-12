@@ -3,14 +3,15 @@ import CreateTable from '../constants/createTable'
 import BasicCard from '../constants/basicCard';
 import SearchBar from "../constants/searchBar";
 import { Box } from "@material-ui/core";
-import { IconButton, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
+import { useLocation } from "react-router-dom";
 import { Stack } from "@mui/material"
 import Modal from '@mui/material/Modal';
-function ShowHouses({backendActor, user}){
-  const [stories, setStories] = useState(null)
 
-    const tableHeader = [
-    {id:'houseID', name:"House ID"},
+function GetHouseByAgent({backendActor}){
+  const [stories, setStories] = useState(null)
+  const location = useLocation()
+  const tableHeader = [
     {id:'agent', name:"Agent"},
     {id:'city', name:"City"},
     {id:'town', name:"Town"},
@@ -22,6 +23,7 @@ function ShowHouses({backendActor, user}){
     {id:'requirements', name:"Requirements"},
     {id:'utilities', name:"Utilities"},
 ]
+    const data = location.state.stories
     const closeUp = () => {
       setOpen(false)
     }
@@ -41,30 +43,19 @@ function ShowHouses({backendActor, user}){
       .then(res => res.json())
       .then(datas => {
         let filteredData = []
-        if(user.level == "agent"){
-          console.log(user.level)
           datas.forEach(dat => {
-            if(dat.agent == user.email){
+            if(data.email == dat.agent){
               filteredData.push(dat)
             }
           })
           setStories(filteredData)
-        }else{
-          setStories(datas)
-        }
       })
   }, [])
-    // useEffect(() => {
-    //     getCars();
-    //   }, []);
+
     const getCars = async () => {
         try {
           const messages = await backendActor.getCarsAndDriversData();
           setStories(messages);
-          console.log( "the messages " + messages)
-          console.log( "the messages " + backendActor)
-          console.log( "the stories " + stories)
-          stories.map(story => console.log("the story " + story))
         } catch (error) {
           console.log("Error on getting topics ", error);
         }
@@ -73,11 +64,10 @@ function ShowHouses({backendActor, user}){
         return(
           <Box>
           <Paper>
-              <BasicCard content={<CreateTable link="agent" focus="MoreOnHouse" routie="more" data={stories} tableHeader={tableHeader} canDownload={true} onClick={recomend} />}
-            header={ <SearchBar searchValue={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for a House" title="Available Houses" getting={getting} /> } />
+              <BasicCard content={<CreateTable link="agent" focus="MoreOnHouse" routie="/more" data={stories} tableHeader={tableHeader} canDownload={true} onClick={recomend} />}
+            header={ <SearchBar searchValue={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for a House" title={`Available Houses from ${data.email}`} getting={getting} /> } />
           </Paper> 
-                  
-                  <Modal
+              <Modal
                 sx={{ display:'flex', top:"-95px", left:"-700px" }}
                 open={open}
                 onClose={closeUp}
@@ -104,4 +94,4 @@ function ShowHouses({backendActor, user}){
         </>
     )
 }
-export default ShowHouses
+export default GetHouseByAgent

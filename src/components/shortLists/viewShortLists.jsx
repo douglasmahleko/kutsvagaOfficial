@@ -3,21 +3,24 @@ import CreateTable from '../constants/createTable'
 import BasicCard from '../constants/basicCard';
 import { Box, Stack, TextField, Typography } from "@mui/material";
 function ViewShortLists({backendActor, user}){
-    const [stories, setStories] = useState([
-        {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
-        {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
-        {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
-    ])
+    // const [stories, setStories] = useState([
+    //     {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
+    //     {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
+    //     {agentEmail:"agentEmail",houseId:"houseId",agentContact:"agentContact",agentAddress:"agentAddress",roomsAvailable:"roomsAvailable", conditions:"conditions", utilities:"utilities"},
+    // ])
+    const [stories, setStories] = useState(null)
     const [search, setSearch] = useState("")
     const [getting, setGetting] = useState(true);
     const tableHeader = [
-        {id:"agentEmail", name:"Email"},
-        {id:"houseId", name:"House Id"},
+        {id:"agentEmail", name:"Agent Email"},
+        {id:"clientEmail", name:"Client Email"},
+        {id:"houseID", name:"House Id"},
         {id:"agentContact", name:"Agent Contact"},
-        {id:"agentAddress", name:"Agent Address"},
+        {id:"address", name:"Agent Address"},
         {id:"roomsAvailable", name:"Rooms Available"},
-        {id:"conditions", name:"House Conditions"},
-        {id:"utilities", name:"utilities"}
+        {id:"clientContact", name:"Client Contact"},
+        {id:"conditionsFromLandlord", name:"Conditions From Landlord"},
+        {id:"utilitiesForOnHouse", name:"Utilities For On House"}
       ]
 
     // useEffect(() => {
@@ -34,6 +37,23 @@ function ViewShortLists({backendActor, user}){
           setGetting(false)
         }
       };
+      useEffect(() => {
+        let url = 'http://localhost:3000/shortListedHouses'
+
+        fetch(url)
+        .then(res => res.json())
+        .then(datas => {
+          let filteredData = []
+          datas.forEach(dat => {
+            if(dat.clientEmail == user.email){
+              filteredData.push(dat)
+            }else if(dat.agentEmail == user.email){
+              filteredData.push(dat)
+            }
+          })
+          setStories(filteredData)
+        })
+    }, [])
       const getHead = () => {
         return(
           <Box sx={{marginLeft:'15%', justifyContent:"center"}}>
@@ -43,8 +63,12 @@ function ViewShortLists({backendActor, user}){
         )
       }
     return(
-        <BasicCard content={<CreateTable user={user} data={stories} link="agentEmail" link2="houseId" focus="shortList" routie2="more" routie="more" tableHeader={tableHeader} canDownload={true} />}
-         header={getHead()} />
+        <>
+          {
+            stories && <BasicCard content={<CreateTable user={user} data={stories} link="agentEmail" link2="houseID" focus="shortList" routie2="/more" routie="/more" tableHeader={tableHeader} canDownload={true} />}
+            header={getHead()} />
+          }
+        </>
     )
 }
 export default ViewShortLists

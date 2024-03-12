@@ -11,8 +11,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { NavBarLists } from '../constants/navBarLists';
 import Switch from '@mui/material/Switch';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
+import userEvent from '@testing-library/user-event';
 
-function SideBar({agent}){
+function SideBar({user}){
     const navigate = useNavigate()
     const location = useLocation()
     const parsedTitle = location.pathname.replace(/\W/g, ' ')
@@ -25,14 +26,22 @@ function SideBar({agent}){
         <Divider />
         <List>
           {NavBarLists.slice(6, 10).map((text, index) => (
-            <ListItem key={text.id} >
-              <ListItemButton onClick={() => navigate(text.route)} >
-                <ListItemIcon sx={navbarStyles.icons}>
-                  {text.icon}
-                </ListItemIcon>
-                <ListItemText primary={text.label} sx={navbarStyles.text } />
-                </ListItemButton>
-            </ListItem>
+            <>
+              {
+                user.level == text.level || text.level =='both' ? (
+                  <ListItem key={text.id} >
+                    <ListItemButton onClick={() => navigate(text.route)} >
+                      <ListItemIcon sx={navbarStyles.icons}>
+                        {text.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={text.label} sx={navbarStyles.text } />
+                    </ListItemButton>
+                </ListItem>
+                ) : (
+                  null
+                )
+              }
+            </>
           ))}
           <ListItem key='11'>
               <ListItemButton onClick={() => console.log('darkMOde')} >

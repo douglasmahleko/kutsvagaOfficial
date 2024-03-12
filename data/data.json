@@ -1,0 +1,211 @@
+{
+    "houses" : [
+        {
+            "address": "16464 unit m",
+            "houseID": "b12",
+            "city": "Chitungwiza",
+            "town": "Harare",
+            "agent": "tsimango@gmail.com",
+            "phase": "Seke 1and 2",
+            "roomsAvailable": "4",
+            "conditions": "do duties",
+            "rules": "rent must be paid by 30",
+            "amountPerRoom": "$55",
+            "requirements": "family not more than 4",
+            "utilities": "water, electriciy, wifi ",
+            "available" : "yes"
+        },
+        {
+            "address": "16464 unit k",
+            "houseID": "b13",
+            "city": "Chitungwiza",
+            "town": "Harare",
+            "agent": "dmahleko@gmail.com",
+            "phase": "Seke 1and 2",
+            "roomsAvailable": "4",
+            "conditions": "do duties",
+            "rules": "rent must be paid by 30",
+            "amountPerRoom": "$55",
+            "requirements": "family not more than 4",
+            "utilities": "water, electriciy, wifi ",
+            "available" : "no"
+        }
+    ],
+    "housesOffMarket" : [
+        {
+            "address": "16464 unit k",
+            "houseID": "b13",
+            "agent": "tsimango@gmail.com",
+            "phase": "Seke 1and 2",
+            "roomsAvailable": "4",
+            "roomsTaken": "3",
+            "rooms left": "1"
+        }
+    ],
+    "users" : [
+        {
+          "surname": "simango",
+          "email": "tsimango@gmail.com",
+          "idNo": "13-0000 H 13",
+          "contact": "077597450",
+          "dob": "12/12/1999",
+          "name": "tendai",
+          "country": "zimbabwe",
+          "gender": "female",
+          "title": "Mrs",
+          "nationality": "Zimbabwean",
+          "level": "agent",
+          "registered": true,
+          "signedInDayAndTime": [],
+          "loggedIn": false
+        },
+        {
+            "surname": "mahleko",
+            "email": "dmahleko@gmail.com",
+            "idNo": "13-00300 H 13",
+            "contact": "0775947450",
+            "dob": "12/12/1990",
+            "name": "douglas",
+            "country": "zimbabwe",
+            "gender": "male",
+            "title": "Mr",
+            "nationality": "Zimbabwean",
+            "level": "agent",
+            "registered": true,
+            "signedInDayAndTime": [],
+            "loggedIn": false
+          },
+        {
+            "surname": "mlambo",
+            "email": "smlambo@gmail.com",
+            "idNo": "70-200000 H 13",
+            "contact": "0776477847",
+            "dob": "12/12/2000",
+            "name": "simon",
+            "country": "Zimbabwe",
+            "gender": "male",
+            "title": "Mr",
+            "nationality": "Zimbabwean",
+            "level": "client",
+            "registered": true,
+            "signedInDayAndTime": [],
+            "loggedIn": false
+          }
+    ],
+    "clients" : [
+        {
+          "email": "smlambo@gmail.com",
+          "idNo": "70-200000 H 13",
+          "contact": "0776477847",
+          "level": "client"
+        }
+    ],
+    "agents" : [
+        {
+          "email": "tsimango@gmail.com",
+          "idNo": "13-0000 H 13",
+          "contact": "077597450",
+          "physicalAddress": "595 pahse 3",
+          "city": "chipinge",
+          "province": "manicaland",
+          "location": "checheche",
+          "level": "agent",
+          "amountInDolls": "$20",
+          "amountInICP": "30",
+          "regExpire": "12/12/2004",
+          "rating":3.5
+        },
+        {
+            "email": "dmahleko@gmail.com",
+            "idNo": "13-00300 H 13",
+            "contact": "0775947450",
+            "physicalAddress": "585 pahse 3",
+            "city": "chipinge",
+            "province": "manicaland",
+            "location": "checheche",
+            "level": "agent",
+            "amountInDolls": "$20",
+            "amountInICP": "30",
+            "regExpire": "12/12/2004",
+            "rating":4
+          }
+    ],
+    "clientsNeeds" : [
+        {
+            "clientEmail": "smlambo@gmail.com",
+            "numOfRooms": "3",
+            "amountPerRoom": "55",
+            "totalAmount": "$165",
+            "town": "chitungwiza",
+            "country": "zimbabwe",
+            "city": "harare",
+            "personalInfo": "father of 3 children and a wife",
+            "phase": "seke 1 and 2",
+            "roomsNeeded": "3",      
+            "consideration" : "zengeza, makoni, seke 1, also 4 rooms less than $180",
+            "prerequisites" : "electricity, borehole, near shopping mall (center)",
+            "dateExpectingHouse": "01/03/2024",
+            "requirements": "electricity, water, no landlord,",
+            "budget": "180"
+        }
+    ],
+    "recommendations":[
+        {
+            "clientEmail": "smlambo@gmail.com",
+            "agentEmail": "tsimango@gmail.com",
+            "houseID": "b12",
+            "city": "Chitungwiza",
+            "town": "Harare"
+        }
+    ],
+    "shortListedHouses":[
+        {
+            "clientEmail": "smlambo@gmail.com",
+            "agentEmail": "tsimango@gmail.com",
+            "address": "16464 unit m",
+            "houseID": "b12",
+            "agentContact": "077597450",
+            "clientContact": "0776477847",
+            "roomsAvailable": "4",
+            "conditionsFromLandlord": "do duties",
+            "utilitiesForOnHouse": "water, electriciy, wifi"
+        },
+        {
+            "clientEmail": "smlambo@gmail.com",
+            "agentEmail": "dmahleko@gmail.com",
+            "address": "16464 unit k",
+            "houseID": "b13",
+            "agentContact": "077597450",
+            "clientContact": "0776477847",
+            "roomsAvailable": "4",
+            "conditionsFromLandlord": "do duties",
+            "utilitiesForOnHouse": "water, electriciy, wifi"
+        }
+    ],
+
+    "paymentHistory":[
+        {
+            "userEmail": "smlambo@gmail.com",
+            "amountInDollas": "$10",
+            "amountInBitCoins": "",
+            "method": "banking",
+            "dgtalAcc": "+263776477847",
+            "bankAccNo": "",
+            "bank": "ecocash",
+            "level": "client",
+            "datePaymentMade": "12/12/2024"
+        },
+        {
+            "userEmail": "tsimango@gmail.com",
+            "amountInDollas": "$30",
+            "amountInBitCoins": "",
+            "method": "banking",
+            "dgtalAcc": "+263775974502",
+            "bankAccNo": "",
+            "bank": "ecocash",
+            "level": "agent",
+            "datePaymentMade": "12/12/2024"
+        }
+    ]
+    
+}

@@ -22,21 +22,21 @@ export const NavBarLists = [
         id : 1,
         icon : <PersonAddIcon />,
         label : "Register as Agent",
-        level : "agents",
+        level : "both",
         route : "addAgent"
     },
     {
         id : 2,
         icon : <GroupAddIcon />,
         label : "Register as Client",
-        level : "agents",
+        level : "both",
         route : "addClient"
     },
     {
         id :3,
         icon : <SupportAgentIcon />,
         label : "Show Agents",
-        level : "clients",
+        level : "client",
         route : "showAgents"
     },
     
@@ -44,14 +44,14 @@ export const NavBarLists = [
         id : 4,
         icon : <SwapHorizIcon />,
         label : "Show Clients",
-        level : "agents",
+        level : "agent",
         route : "showClients"
     },
     {
         id : 5,
         icon : <AddHomeWorkIcon />,
         label : "Add House",
-        level : "agents",
+        level : "agent",
         route : "addHouse"
     },
     {
@@ -65,7 +65,7 @@ export const NavBarLists = [
         id : 7,
         icon : <PlaylistAddCircleIcon />,
         label : "Add Prerequisites",
-        level : "both",
+        level : "client",
         route : "myPrerequisites"
     },
     {

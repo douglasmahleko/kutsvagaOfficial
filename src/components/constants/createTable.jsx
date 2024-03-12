@@ -52,7 +52,6 @@ function CreateTable({tableHeader, data,backendActor, user, link, link2, routie,
         document.body.appendChild(element)
         element.click()
       }
-      
       const moreOnHouse = (tableHead, data) => {
         dataFroUrl.push([tableHead])
         dataFroUrl.push([data])
@@ -61,6 +60,13 @@ function CreateTable({tableHeader, data,backendActor, user, link, link2, routie,
                 header : tableHead,
                 stories : data,
                 title : "More On A House"
+            }
+        })
+      }
+      const housesByAnAgent = (data) => {
+        navigate('/getHouseByAgent', {
+            state:{
+                stories : data,
             }
         })
       }
@@ -155,7 +161,7 @@ function CreateTable({tableHeader, data,backendActor, user, link, link2, routie,
                                                         </div>
                                                     ) : (
                                                         (focus == "housesByAgent") ? (
-                                                            <Button onClick={() => navigate("/showHouses")} variant="contained" size="small" color="primary" mt={5} >Houses By Agent </Button>
+                                                            <Button onClick={() => housesByAnAgent(company)} variant="contained" size="small" color="primary" mt={5} >Houses By Agent </Button>
                                                         ) : (
                                                             (focus == "MoreOnClient") ? (
                                                                 <Button onClick={() => navigate("/showHouses")} variant="contained" size="small" color="primary" mt={5} >More On House ShortListed </Button>
